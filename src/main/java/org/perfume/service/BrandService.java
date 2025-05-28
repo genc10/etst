@@ -8,4 +8,9 @@ import java.util.List;
 public interface BrandService {
     List<BrandResponse> searchBrands(String name);
     List<BrandResponse> getBrandsWithPerfumes();
+    BrandResponse create(BrandRequest request);
+    BrandResponse update(Long id, BrandRequest request);
+    void delete(Long id);
+    BrandResponse getById(Long id);
+    List<BrandResponse> getAll();
 }
