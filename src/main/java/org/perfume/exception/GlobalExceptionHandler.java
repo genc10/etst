@@ -34,8 +34,8 @@ public class GlobalExceptionHandler {
                 .build());
     }
 
-    @ExceptionHandler(InvalidRequestException.class)
-    public ResponseEntity<ErrorResponse> handleInvalidRequestException(InvalidRequestException exception) {
+    @ExceptionHandler(InvalidInputException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidInputException(InvalidInputException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse.builder()
                 .error(ErrorMessage.INVALID_REQUEST.getDisplayName())
                 .message(exception.getMessage())
