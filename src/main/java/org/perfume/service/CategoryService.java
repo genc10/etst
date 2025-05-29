@@ -6,11 +6,17 @@ import org.perfume.model.dto.response.CategoryResponse;
 import java.util.List;
 
 public interface CategoryService {
-    CategoryResponse createCategory(CategoryRequest request);
-    CategoryResponse updateCategory(Long id, CategoryRequest request);
-    void deleteCategory(Long id);
-    CategoryResponse getCategoryById(Long id);
-    List<CategoryResponse> getAllCategories();
-    List<CategoryResponse> searchCategories(String name);
+    CategoryResponse save(CategoryRequest request);
+
+    CategoryResponse update(Long id, CategoryRequest request);
+
+    void delete(Long id);
+
+    CategoryResponse findById(Long id);
+
+    List<CategoryResponse> findAll();
+
     List<CategoryResponse> getCategoriesWithPerfumes();
+
+    List<CategoryResponse> searchCategories(String name);
 }

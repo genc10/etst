@@ -1,4 +1,4 @@
 package org.perfume.domain.repo;
 
-public class UserDao {
+public interface UserDao {
 }

@@ -1,4 +1,4 @@
 package org.perfume.domain.repo;
 
-public class CartItemDao {
+public interface CartItemDao {
 }

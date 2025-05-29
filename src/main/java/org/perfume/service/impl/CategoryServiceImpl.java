@@ -8,7 +8,7 @@ import org.perfume.exception.NotFoundException;
 import org.perfume.mapper.CategoryMapper;
 import org.perfume.model.dto.request.CategoryRequest;
 import org.perfume.model.dto.response.CategoryResponse;
-import org.perfume.service.CategorySevice;
+import org.perfume.service.CategoryService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,13 +18,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class CategoryServiceImpl implements CategorySevice {
+public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryDao categoryDao;
     private final CategoryMapper categoryMapper;
 
     @Override
-    public CategoryResponse create(CategoryRequest request) {
+    public CategoryResponse save(CategoryRequest request) {
         if (categoryDao.existsByName(request.getName())) {
             throw new AlreadyExistsException("Category with name " + request.getName() + " already exists");
         }
@@ -55,9 +55,9 @@ public class CategoryServiceImpl implements CategorySevice {
         categoryDao.deleteById(id);
     }
 
-    @Override
+
     @Transactional(readOnly = true)
-    public CategoryResponse getById(Long id) {
+    public CategoryResponse findById(Long id) {
         Category category =categoryDao.findById(id)
                 .orElseThrow(() -> new NotFoundException("Category with id " + id + " not found"));
 
@@ -66,7 +66,7 @@ public class CategoryServiceImpl implements CategorySevice {
 
     @Override
     @Transactional(readOnly = true)
-    public List<CategoryResponse> getAll() {
+    public List<CategoryResponse> findAll() {
         return categoryDao.findAllByOrderByNameAsc().stream()
                 .map(categoryMapper::toDto)
                 .collect(Collectors.toList());

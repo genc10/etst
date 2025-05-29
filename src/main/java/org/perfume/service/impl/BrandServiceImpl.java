@@ -24,7 +24,7 @@ public class BrandServiceImpl implements BrandService {
     private final BrandMapper brandMapper;
 
     @Override
-    public BrandResponse create(BrandRequest request) {
+    public BrandResponse save(BrandRequest request) {
         if (brandDao.existsByName(request.getName())) {
             throw new AlreadyExistsException("Brand with name " + request.getName() + " already exists");
         }
@@ -59,14 +59,14 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     @Transactional(readOnly = true)
-    public BrandResponse getById(Long id) {
+    public BrandResponse findById(Long id) {
         return brandMapper.toDto(brandDao.findById(id)
                 .orElseThrow(() -> new NotFoundException("Brand not found")));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<BrandResponse> getAll() {
+    public List<BrandResponse> findAll() {
         return brandDao.findAllByOrderByNameAsc().stream()
                 .map(brandMapper::toDto)
                 .collect(Collectors.toList());
